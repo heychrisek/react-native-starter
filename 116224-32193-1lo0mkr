@@ -1,0 +1,4 @@
+
+          module.exports = require("/Users/cek/Documents/Projects/react-native-project/ReactNativeProject/node_modules/react-native/packager/react-packager/src/JSTransformer/worker.js");
+          require("/Users/cek/Documents/Projects/react-native-project/ReactNativeProject/node_modules/react-native/packager/transformer.js");
+          
