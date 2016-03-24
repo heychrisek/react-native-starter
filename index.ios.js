@@ -15,10 +15,40 @@ import React, {
 var MOCKED_MOVIES_DATA = [
   {title: 'Title', year: '2015', posters: {thumbnail: 'http://i.imgur.com/UePbdph.jpg'}},
 ];
+var REQUEST_URL = 'https://raw.githubusercontent.com/facebook/react-native/master/docs/MoviesExample.json'
 
 class ReactNativeProject extends Component {
-  render() {
-    var movie = MOCKED_MOVIES_DATA[0];
+  constructor(props) {
+    super(props);
+    this.state = {
+      movies: null,
+    };
+  }
+
+  componentDidMount() {
+    this.fetchData();  
+  }
+
+  fetchData() {
+    fetch(REQUEST_URL)
+      .then((response) => response.json())
+      .then((responseData) => {
+        this.setState({
+          movies: responseData.movies,
+        });
+      })
+      .done();
+  }
+
+  renderLoadingView() {
+    return (
+      <View style={styles.container}>
+        <Text>Loading movies...</Text>
+      </View>
+    )
+  }
+
+  renderMovie(movie) {
     return (
       <View style={styles.container}>
         <Image 
@@ -31,6 +61,15 @@ class ReactNativeProject extends Component {
         </View>
       </View>
     );
+  }
+
+  render() {
+    if (!this.state.movies) {
+      return this.renderLoadingView();
+    }
+
+    var movie = MOCKED_MOVIES_DATA[0];
+    return this.renderMovie(movie)
   }
 }
 
